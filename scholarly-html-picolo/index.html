@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Picolo</title>
+    <link rel="stylesheet" href="css/scholarly.min.css">
+    <script src="js/scholarly.min.js"></script>
+  </head>
+  <body prefix="schema: http://schema.org">
+    <header>
+      <div class="banner">
+        <img src="logo.jpg" width="227" height="50" alt="Scholarly HTML logo">
+      </div>
+      <h1>Raport</h1>
+    </header>
+    <div role="contentinfo">
+      <dl>
+        <dt>Autori</dt>
+        <dd>
+          <span>Dascalu Laurentiu  </span>&amp; <br/>
+          <span>Dulceanu Maria</span>
+        </dd>
+      </dl>
+    </div>
+    <section id="introduction" role="doc-introduction">
+      <!-- review? -->
+      <h2>Introducere</h2>
+      <p>
+        Picolo este o platforma online ce permite proprietarilor de situri sa isi optimizeze imaginile de pe un anumit domeniu cu ajutorul unui service worker generat in functie de preferintele utilizatorului.
+      </p>
+      <p>
+        Platforma poate fi accesata doar dupa ce utilizatorul se autentifica cu numele si parola contului sau, deja creat.
+      </p>
+      <p>
+        In cadrul aplicatiei, se pot vizualiza/adauga/edita/sterge toate domeniile proprietarului/administratorului.
+      </p>
+    </section>
+    <section id="utilizare">
+      <!-- review? -->
+      <h2>Etapele dezvoltarii proiectului</h2>
+      <p>
+        
+      </p>
+      <section id="structA">
+        <h3>Structura aplicatiei</h3>
+        <p>
+          Realizare unei diagrame UML cu rolul de a clarifica modul de functionare al aplicatiei.
+        </p>
+        <p>
+          Realizare unui raport in formatul Scholary HTML pentru stabilirea functionalitatilor si etapelor de dezvoltare.
+        </p>
+      </section>
+      <section id="bd">
+        <h3>Crearea bazei de date</h3>
+        <p>Datele tuturor proprietarilor/administratorilor de situri web ce au cont pe platforma Picolo sunt stocate intr-o tabela din baza de date ('useri'). De asemenea, domeniile si specificatiile acestora vor fi stocate intr-o tabela diferita ('domenii') ce contine si id-ul proprietarilor.</p>
+      </section>
+      <section id="creareInterfata">
+        <!-- review? -->
+        <h3>Creare interfetei</h3>
+        <p>
+          Crearea interfetei pentru proprietarii/administratorii de situri web (log-in, creare cont, vizualizare domenii, adaugare/editare/stergere domenii);
+        </p>
+      </section>
+      <section id="creareFormulare">
+        <!-- review? -->
+        <h3>Crearea formularelor</h3>
+        <p>
+          Crearea formularelor de creare cont si autentificare; 
+        </p>
+        <p>
+          Crearea formularelor de adaugare/editare domeniu in cadrul carora se genereaza codul de optimizare al imaginilor in functie de preferintele utilizatorului;
+        </p>
+      </section>
+      <section id="article">
+        <!-- review? -->
+        <h3>Crearea service worker-ului</h3>
+        <p>
+          In functie de formularul completat de client, se va genera un cod JavaScript care va trebui adaugat de catre utilizator in codul sursa al sitului.
+        </p>
+        <p>
+          In urma adaugarii service worker-ului pe sit imaginile vor fi optimizate automat de catre acesta conform preferintelor clientului.
+        </p>
+      </section>
+    </section>
+    <section id = "interaciuneUt">
+      <h3>Interactiunea cu utilizatorul</h3>
+      <p>
+        Platoforma Picolo interactioneaza cu utlizatorul prin cadrul unui sit web cu o interfata intuitiva pentru managementul domeniilor;
+      </p>
+      <section id = "article">
+        <h3>Autentificare si creare cont</h3>
+        <p>
+          Pentru a accesa platforma Picolo utilizatorii trebuie sa se autentifice prin intermediului formularului de log-in. In cazul in care utilizatorul nu are un cont acesta isi poate crea unul cu ajutorul formularului de creare cont. Un singur cont poate fi creat pe aceeasi adresa de mail/telefon.
+        </p>
+      </section>
+      <section id = "article">
+        <h3>Managementul domeniilor</h3>
+        <p>
+          Proprietarii siturilor au posibilitatea de a vizualiza toate domeniile;
+        </p>
+        <p>
+          De asemenea, un nou domeniu poate fi adaugat oricand cu proprietatile dorite. Un domeniu adaugat, poate fi modificat in orice moment, dupa preferintele utilizatorului.
+        </p>
+        <p>
+          Utilizatorii pot sterge oricare dintre domeniile introduse.
+        </p>
+      </section>
+      <section id = "article">
+        <h3>Service worker</h3>
+        <p>
+          Pentru fiecare domeniu este generat cate un service worker pe care utilizatorul il va folosi pentru a optimiza imaginile de pe sit.
+        </p>
+      </section>
+    </section>
+    <section id = "modFol">
+      <h3>Modul de folosire a sistemului de management al codului-sursa ales</h3>
+      <p>
+        In realizarea aplicatiei Picolo vom utiliza GitHub pentru a gestiona bine codul-sursa.
+      </p>
+    </section>
+    <section id = "detModelare">
+      <h3>Detalii referitoare la modelarea datelor proprii</h3>
+      <p>
+        In cadrul aplicatiei vom utiliza datele personale ale utilizatorilor pentru a creea un cont pe sit si pentru a facilita interactiunea dintre utilizator si aplicatie. 
+      </p>
+    </section>
+    <section id = "solutiiStocare">
+      <h3>Solutii de stocare</h3>
+      <p>
+        Pentru a stoca aplicatia atat la nivel de server, cat si la nivel de client, vom folosi un serviciu de hosting.
+      </p>
+    </section>
+  </body>
+</html>
