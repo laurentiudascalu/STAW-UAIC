@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="/style.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Courgette|Didact+Gothic&display=swap" rel="stylesheet">
+</head>
+<body>
+  <%- include sus -%>
+  <%- include stanga -%>
+  <%- include content -%>
+</body>
+<script type="text/javascript">
+	function getCookie(cname) {
+	  var name = cname + "=";
+	  var ca = document.cookie.split(';');
+	  for(var i = 0; i < ca.length; i++) {
+	    var c = ca[i];
+	    while (c.charAt(0) == ' ') {
+	      c = c.substring(1);
+	    }
+	    if (c.indexOf(name) == 0) {
+	      return c.substring(name.length, c.length);
+	    }
+	  }
+	  return "";
+	}
+	function incarca(link){
+		if(link==''){
+			link='#';
+		}
+		var element = document.getElementById("content");
+		var idUser = getCookie('idUser');
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var xhttp2 = new XMLHttpRequest();
+					xhttp2.onreadystatechange = function() {
+						if (this.readyState == 4 && this.status == 200) {
+					    	element.outerHTML=xhttp2.responseText;
+						}
+					};
+					console.log(xhttp.responseText);
+				    if(xhttp.responseText!='-1'){ // daca exista cookie
+				    	if(link!='login' && link!='#'){	
+					    	xhttp2.open("GET", "http://localhost:3000/"+link, true);
+					    	xhttp2.send();				
+						}
+				    }else{
+						if(link!='login'){
+							if(link!='contnou'){
+								xhttp2.open("GET", "http://localhost:3000/error", true);
+					    		xhttp2.send();
+							}else{
+								xhttp2.open("GET", "http://localhost:3000/contnou", true);
+					    		xhttp2.send();
+							}	
+						}else{
+					    	xhttp2.open("GET", "http://localhost:3000/login", true);
+					    	xhttp2.send();					
+						}
+					}
+				}	
+			};
+			xhttp.open("GET", "http://localhost:3000/checklogin?cookie="+idUser, true);
+			xhttp.send();	
+	}
+	function logout(name){
+		document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+		incarca('login');
+	}
+	function getUser(cookie){
+		var login = document.getElementById("logIn");
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+			    login.innerHTML=xhttp.responseText.charAt(0).toUpperCase() + xhttp.responseText.slice(1);
+			}	
+		};
+		xhttp.open("GET", "http://localhost:3000/checklogin?cookie="+cookie, true);
+		xhttp.send();
+	}
+
+	// la refresh sa ramana pe aceeasi pagina
+	window.onload = function() {
+		var link = window.location.href;
+		if (link.indexOf('#') != -1){
+			var segment = link.split('#');
+			var links = ["edit", "domenii", "login", ""];
+			var ok=0;
+			for(var i=0; i<links.length;i++){
+				if(segment[1].includes(links[i])){
+					ok=1;
+				}
+			}
+			if(ok==1){
+				incarca(segment[1]);
+			}
+		}
+		getUser(getCookie('idUser'));
+
+	};
+
+</script>
+</html>

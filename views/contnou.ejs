@@ -1,0 +1,27 @@
+<div id="content">
+	<%- include motto -%>
+	<div class="titlu">Creare cont</div>
+	<form id="formCont" method="post" action="crearecont" enctype="multipart/form-data">
+		<div class="linieForm">
+				<span class="labelInput">Nume complet:</span>
+				<input type="text" name="nume" class="inputText">
+				<div class="c"></div>			
+		</div>
+		<div class="linieForm">
+				<span class="labelInput">Mail:</span>
+				<input type="text" name="mail" class="inputText">
+				<div class="c"></div>			
+		</div>
+		<div class="linieForm">
+				<span class="labelInput">Parola:</span>
+				<input type="password" name="parola" class="inputText">
+				<div class="c"></div>			
+		</div>
+		<div class="linieForm">
+				<span class="labelInput">Repeta parola:</span>
+				<input type="password" name="reparola" class="inputText">
+				<div class="c"></div>			
+		</div>
+		<input type="submit" value="Submit" name="submit" class="submit">
+	</form>
+</div>

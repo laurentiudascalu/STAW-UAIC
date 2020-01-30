@@ -1,0 +1,243 @@
+<div id="content">
+	<%- include motto -%>
+	<div class="titlu">
+		<% if(idDom == 0){%>Adauga domeniu <% }else{ %> Editeaza domeniu <% } %>
+	</div>
+	<% if(idDom == 0 && x != 0){%> 
+		<form id="fileupload" method="post" action="adDomeniu" enctype="multipart/form-data">
+			<div class="linieForm">
+				<span class="labelInput">Domeniu:</span>
+				<input type="text" name="domeniu" class="inputText">
+				<div class="c"></div>			
+			</div>
+			<div class="linieForm">
+				<span class="labelInput">Expresie regulata imagine:</span>
+				<input type="text" name="urlImg" class="inputText">
+				<div class="c"></div>
+			</div>
+			<div class="linieForm">
+				<span class="labelInput">Cu/Fara pierderi:</span>
+				<input name="pierderi" type="checkbox" value=1 class="inputCk">
+				<div class="c"></div>
+			</div>
+			<div class="linieForm">
+				<span class="labelInput">Watermark:</span>
+				<input type="file" name="imgUpload">
+				<div class="c"></div>
+			</div>
+			<div class="linieForm">
+				<span class="labelInput">Cu/Fara watermark:</span>
+				<input name="watermark" type="checkbox" value=1 class="inputCk">
+				<div class="c"></div>
+			</div>
+			<div class="linieForm">
+				<span class="labelInput">Detalii:</span>
+				<textarea rows="4" cols="50" name = "detalii"></textarea>
+				<div class="c"></div>
+			</div>
+			<div class="linieForm">
+				<span class="labelInput">Cu/Fara resize:</span>
+				<input name="resize" type="checkbox" value=1 class="inputCk">
+				<div class="c"></div>
+			</div>
+			<input type="hidden" id="id_user" name="id_user" value="<%=x%>">
+			<input type="submit" value="Submit" name="submit" class="submit">
+		</form>
+
+	<% }else if(idDom > 0) {%>
+		<form id="fileupload" method="post" action="editDomeniu" enctype="multipart/form-data">
+			<div class="linieForm">
+				<span class="labelInput">Domeniu:</span>
+				<input type="text" name="domeniu" class="inputText" value="<%= resEdit[0].domeniu %>">
+				<div class="c"></div>			
+			</div>
+			<div class="linieForm">
+				<span class="labelInput">Expresie regulata imagine:</span>
+				<input type="text" name="urlImg" class="inputText" value="<%= resEdit[0].urlImg %>">
+				<div class="c"></div>
+			</div>
+			<div class="linieForm">
+				<span class="labelInput">Cu/Fara pierderi:</span>
+				<input name="pierderi" type="checkbox" class="inputCk" value=1 <% if(resEdit[0].pierderi == 1){%> checked <% } %> >
+				<div class="c"></div>
+			</div>
+			<div class="linieForm">
+				<span class="labelInput">Watermark:</span>
+				<input type="file" name="imgUpload">
+				<div class="c"></div>
+			</div>
+			<div class="linieForm">
+				<span class="labelInput">Cu/Fara watermark:</span>
+				<input name="watermark" type="checkbox" value=1 class="inputCk" <% if(resEdit[0].watermark == 1){%> checked <% } %>>
+				<div class="c"></div>
+			</div>
+			<div class="linieForm">
+				<span class="labelInput">Detalii:</span>
+				<textarea rows="4" cols="50" name = "detalii"><%= resEdit[0].detalii %></textarea>
+				<div class="c"></div>
+			</div>
+			<div class="linieForm">
+				<span class="labelInput">Cu/Fara resize:</span>
+				<input name="resize" type="checkbox" value=1 class="inputCk" <% if(resEdit[0].resize == 1){%> checked <% } %>>
+				<div class="c"></div>
+			</div>
+			<input type="hidden" id="id_domeniu" name="id_domeniu" value="<%= idDom %>">
+			<input type="submit" value="Submit" name="submit" class="submit">
+		</form>
+		<span class="swTitle">Cod pentru a include Workerul</span>
+<pre>
+if ('serviceWorker' in navigator) {
+  	window.addEventListener('load', function() {
+    	navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+      		console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    	}, function(err) {
+      		console.log('ServiceWorker registration failed: ', err);
+    	});
+  	});
+}
+
+var imag = document.querySelectorAll("img");
+for(var i=0;i &#60; imag.length;i++){
+	imag[i].classList.add("lazy");
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target;
+          lazyImage.src = lazyImage.dataset.src;
+          lazyImage.dataset.src = "";
+          lazyImage.classList.remove("lazy");
+          lazyImageObserver.unobserve(lazyImage);
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage);
+    });
+  }
+});
+</pre>
+		<span class="swTitle">Service Worker</span>
+<pre>
+
+var version = 'v3::';
+var he = '0';
+
+self.addEventListener("install", function(event) {
+  console.log('WORKER: install event in progress.');
+  event.waitUntil(
+    caches
+      .open(version + 'fundamentals')
+      .then(function(cache) {
+        return cache.addAll([
+          '/'
+        ]);
+      })
+      .then(function() {
+        console.log('WORKER: install completed');
+      })
+  );
+});
+
+self.addEventListener("fetch", function(event) {
+
+  blankImg = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+  headers = new Headers(),
+  
+  console.log('this is height' + he);
+    
+
+	console.log('WORKER: fetch event in progress.');
+  	if (event.request.method !== 'GET') {
+    	console.log('WORKER: fetch event ignored.', event.request.method, event.request.url);
+    	return;
+  	}
+
+  	var returnUrl = '';
+
+  	if (<%= resEdit[0].urlImg %>.test(event.request.url)) {
+	  	var supportsWebp = 0;
+	  	if (event.request.headers.has('accept')){
+			  if(event.request.headers.get('accept').includes('webp')){
+          supportsWebp = 1;
+        }
+	    }
+      var req = event.request.clone().url;
+      returnUrl = "http://localhost:3000/imagine?iddom=<%= idDom %>&watermark=<%= resEdit[0].watermark %>&size=<% if(resEdit[0].resize == 1){%>"+he+"<% }else{ %>0<% } %>&webp="+supportsWebp+"&faraPierderi=<%= resEdit[0].pierderi %>&img=" + req;
+
+      event.respondWith(
+      caches
+        .match(event.request)
+        .then(function(cached) {
+          if(returnUrl!=''){
+            var networked = fetch(returnUrl, {
+             mode: 'no-cors'
+           })
+              .then(fetchedFromNetwork, unableToResolve)
+              .catch(unableToResolve);
+          }else{
+            console.log(event.request.url);
+              var networked = fetch(event.request.url)
+                .then(fetchedFromNetwork, unableToResolve)
+                .catch(unableToResolve);
+          }
+
+          console.log('WORKER: fetch event', cached ? '(cached)' : '(network)', event.request.url);
+          return cached || networked;
+
+          function fetchedFromNetwork(response) {
+              var cacheCopy = response.clone();
+              console.log('WORKER: fetch response from network.', event.request.url);
+
+              caches
+                .open(version + 'pages')
+                .then(function add(cache) {
+                cache.put(event.request, cacheCopy);
+              })
+              .then(function() {
+                console.log('WORKER: fetch response stored in cache.', event.request.url);
+              });
+
+            return response;
+          }
+          function unableToResolve () {
+            console.log('WORKER: fetch request failed in both cache and network.');
+            return new Response('<h1>Service Unavailable</h1>', {
+              status: 503,
+              statusText: 'Service Unavailable',
+              headers: new Headers({
+                'Content-Type': 'text/html'
+              })
+            });
+          }
+        })
+    );
+
+	  }else{
+    req = fetch( event.request.url ).then( function ( response ) {
+      return response.text().then( function ( body ) {
+        body = body.replace( /src="(.*\.)(png|jpg|jpeg)"/gi, 'src="' + blankImg + '" data-src="$1$2"' );
+        return new Response( body, {
+          headers: response.headers
+        } );
+      } ) ;
+    } );
+    event.respondWith( req );
+    }
+
+	
+});
+
+onmessage = function(e) {
+  console.log('avem');
+  he = e;
+}
+</pre>
+	<% } %>
+</div>

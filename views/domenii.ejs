@@ -1,0 +1,32 @@
+<div id="content">
+	<%- include motto -%>
+	<div class="titlu">DOMENII</div>
+	<div class="domenii">
+		<% if(res == 0){ %>
+			<span>Nu exista domenii</span>
+		<% }else{ %>
+				<%for(var i=0; i < res.length; i++) { %>
+					<a href="#edit?idDom=<%=res[i].id%>" class="domeniu" onclick="incarca('edit?idDom=<%=res[i].id%>');">
+						<span class="titluDomeniu"><%= res[i].domeniu %><img src="ui.png"/></span>
+						<span class="detaliiDomeniu">
+							<img src="circle.png"/>Url imagine: <%= res[i].urlImg %>	
+						</span>
+						<span class="detaliiDomeniu">
+							<img src="circle.png"/>
+							Pierderi: <% if(res[i].pierderi == 0){%> Fara pierderi 
+										 <% }else{ %> Cu pierderi <% } %>
+						</span>
+						<span class="detaliiDomeniu">
+							<img src="circle.png"/>
+							Detalii: <%= res[i].detalii %>
+						</span>
+						<span class="detaliiDomeniu"> 
+							<img src="circle.png"/>
+							Resize: <% if(res[i].resize == 0){%> Fara resize 
+										 <% }else{ %> Cu resize <% } %>
+						</span>
+					</a>
+				<% } %>
+			<% } %>
+	</div>
+</div>
