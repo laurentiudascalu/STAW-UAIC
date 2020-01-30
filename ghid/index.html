@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Picolo</title>
+    <link rel="stylesheet" href="css/scholarly.min.css">
+    <script src="js/scholarly.min.js"></script>
+  </head>
+  <body prefix="schema: http://schema.org">
+    <header>
+      <div class="banner">
+        <img src="logo.jpg" width="227" height="50" alt="Scholarly HTML logo">
+      </div>
+      <h1>Ghid de utilizare</h1>
+    </header>
+    <div role="contentinfo">
+      <dl>
+        <dt>Autori</dt>
+        <dd>
+          <span>Dascalu Laurentiu  </span>&amp; <br/>
+          <span>Dulceanu Maria</span>
+        </dd>
+      </dl>
+    </div>
+    <section id="introduction" role="doc-introduction">
+      <!-- review? -->
+      <h2>Introducere</h2>
+      <p>
+        Picolo este o platforma online ce permite proprietarilor de situri sa isi optimizeze imaginile de pe un anumit domeniu cu ajutorul unui service worker generat in functie de preferintele utilizatorului.<br/>
+        <img src="./domenii.png"/>
+      </p>
+    </section>
+    <section id="cont" role="doc-cont">
+      <!-- review? -->
+      <h2>Creare cont si autentificare</h2>
+      <p>
+        Pentru a putea folosi aplicatia, utilizatorii trebuie sa isi creeze un cont si dupa sa se autentifice. Dupa autentificare au acces complet la aplicatie.<br/>
+        <img src="./cont.png"/>
+      </p>
+    </section>
+    <section id="domeniu" role="doc-domeniu">
+      <!-- review? -->
+      <h2>Adaugare si ediatre domenii</h2>
+      <p>
+        Platforma permite managementul domeniilor ficarui utilizatori. Acestia isi pot adauga sau edita multiple domenii folosind formularele de pe site. La fiecare modificare care se efectueaza pe un domeniu, se genereaza un cod pentru service worker care va fi folosit ulterior.<br/>
+        <img src="./edit.png"/>
+      </p>
+    </section>
+    <section id="worker" role="doc-worker">
+      <!-- review? -->
+      <h2>Service worker</h2>
+      <p>
+        Pentru a adauga service worker-ul pe site-ul propriu, trebuie intrdus in codul html de baza scriptul de incarcare al service worker-ului.<br/>
+        <img src="./sw.png"/>
+      </p>
+      <p>
+        Se genereaza un fisier js cu numele "service-worker.js" care trebuie pus in folderul pricipal al site-ului.<br/>
+        <img src="./sw2.png"/>
+      </p>
+    </section>
+  </body>
+</html>
